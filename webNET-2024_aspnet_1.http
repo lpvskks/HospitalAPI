@@ -1,0 +1,6 @@
+@webNET_2024_aspnet_1_HostAddress = http://localhost:5015
+
+GET {{webNET_2024_aspnet_1_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
