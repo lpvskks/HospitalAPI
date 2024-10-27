@@ -12,8 +12,8 @@ namespace webNET_2024_aspnet_1.DBContext.Models
         public DateTime CreateTime { get; set; }
         [Required]
         public string Name { get; set; }
-       // [Required]
-        //public string Password { get; set; }
+        [Required]
+        public string Password { get; set; }
        
         public DateTime Birthday { get; set; }
         [Required]

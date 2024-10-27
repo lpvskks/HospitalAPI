@@ -22,5 +22,13 @@ namespace webNET_2024_aspnet_1.Controllers
             var tokenResponse = await _doctorService.Register(doctorRegisterDTO);
             return Ok(tokenResponse);
         }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromBody] LoginCredentialsDTO loginCredentialsDTO)
+        {
+            var tokenResponse = await _doctorService.Login(loginCredentialsDTO);
+            return Ok(tokenResponse); 
+        }
+
     }
 }

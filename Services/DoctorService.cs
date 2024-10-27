@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using webNET_2024_aspnet_1.Additional_Services.TokenHelpers;
+using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
 using webNET_2024_aspnet_1.DBContext;
 using webNET_2024_aspnet_1.DBContext.DTO;
 using webNET_2024_aspnet_1.DBContext.Models;
@@ -34,7 +36,7 @@ namespace webNET_2024_aspnet_1.Services
             {
                 Id = Guid.NewGuid(),
                 Name = doctorRegisterDTO.Name,
-               // Password = doctorRegisterDTO.Password,
+                Password = HashPassword.HashingPassword(doctorRegisterDTO.Password),  
                 Email = doctorRegisterDTO.Email,
                 Birthday = doctorRegisterDTO.Birthday,
                 Gender = doctorRegisterDTO.Gender,
@@ -52,5 +54,25 @@ namespace webNET_2024_aspnet_1.Services
             };
 
         }
+        public async Task<TokenResponseDTO> Login(LoginCredentialsDTO loginCredentialsDTO)
+        {
+            var doctor = await _dbContext.Doctors.FirstOrDefaultAsync(d => d.Email == loginCredentialsDTO.Email);
+            if (doctor == null)
+            {
+                throw new ("Неправильный Email или пароль");
+            }
+            else if (!HashPassword.VerifyPassword(loginCredentialsDTO.Password, doctor.Password))
+            {
+                throw new ("Неправильный Email или пароль");
+            }
+
+            var token = _tokenHelper.GenerateToken(doctor);
+            return new TokenResponseDTO
+            {
+                Token = token
+            };
+
+        }
+
     }
 }

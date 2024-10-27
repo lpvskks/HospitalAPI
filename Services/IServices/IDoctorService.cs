@@ -7,6 +7,6 @@ namespace webNET_2024_aspnet_1.Services.IServices
     {
         bool IsUniqueDoctor(string email);
         public Task<TokenResponseDTO> Register(DoctorRegisterDTO doctorRegisterDTO);
-
+        public Task<TokenResponseDTO> Login(LoginCredentialsDTO loginCredentialsDTO);
     }
 }
