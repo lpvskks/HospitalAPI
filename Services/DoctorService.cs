@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using webNET_2024_aspnet_1.Additional_Services.TokenHelpers;
 using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
+using webNET_2024_aspnet_1.AdditionalServices.Validators;
 using webNET_2024_aspnet_1.DBContext;
 using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
 using webNET_2024_aspnet_1.DBContext.Models;
@@ -35,6 +36,11 @@ namespace webNET_2024_aspnet_1.Services
             if (!IsUniqueDoctor(doctorRegisterDTO.Email))
             {
                 throw new Exception("Email уже используется");
+            }
+
+            if (!NameValidator.IsValidName(doctorRegisterDTO.Name))
+            {
+                throw new Exception("Неправильный формат имени. Имя и фамилия должны начинаться с заглавной буквы. Допускаются только буквы и тире. Отчество является необязательным.");
             }
 
             Doctor doctor = new Doctor()
