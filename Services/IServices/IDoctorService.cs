@@ -1,4 +1,4 @@
-﻿using webNET_2024_aspnet_1.DBContext.DTO;
+﻿using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
 using webNET_2024_aspnet_1.DBContext.Models;
 
 namespace webNET_2024_aspnet_1.Services.IServices

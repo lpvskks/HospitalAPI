@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using webNET_2024_aspnet_1.Additional_Services.TokenHelpers;
 using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
 using webNET_2024_aspnet_1.DBContext;
-using webNET_2024_aspnet_1.DBContext.DTO;
+using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
 using webNET_2024_aspnet_1.DBContext.Models;
 using webNET_2024_aspnet_1.DBContext.Models.Enums;
 using webNET_2024_aspnet_1.Services.IServices;
@@ -32,6 +32,11 @@ namespace webNET_2024_aspnet_1.Services
 
         public async Task<TokenResponseDTO> Register(DoctorRegisterDTO doctorRegisterDTO)
         {
+            if (!IsUniqueDoctor(doctorRegisterDTO.Email))
+            {
+                throw new Exception("Email уже используется");
+            }
+
             Doctor doctor = new Doctor()
             {
                 Id = Guid.NewGuid(),

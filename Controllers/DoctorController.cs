@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using webNET_2024_aspnet_1.DBContext.DTO;
+using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
 using webNET_2024_aspnet_1.Services.IServices;
 
 namespace webNET_2024_aspnet_1.Controllers
@@ -15,7 +15,7 @@ namespace webNET_2024_aspnet_1.Controllers
             _doctorService = doctorService;
         }
 
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] DoctorRegisterDTO doctorRegisterDTO)
         {
 
@@ -23,7 +23,7 @@ namespace webNET_2024_aspnet_1.Controllers
             return Ok(tokenResponse);
         }
 
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginCredentialsDTO loginCredentialsDTO)
         {
             var tokenResponse = await _doctorService.Login(loginCredentialsDTO);
