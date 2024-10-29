@@ -7,5 +7,6 @@ namespace webNET_2024_aspnet_1.DBContext
     {
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options) { }
         public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<BlackToken> BlackTokens { get; set; }
     }
 }

@@ -85,5 +85,23 @@ namespace webNET_2024_aspnet_1.Services
 
         }
 
+        public async Task Logout(string token)
+        {
+            string id = _tokenHelper.GetIdFromToken(token);
+            Console.WriteLine("Извлечённый id: " + id);
+
+            if (Guid.TryParse(id, out Guid doctorId) && doctorId != Guid.Empty)
+            {
+                Console.WriteLine("Преобразованный doctorId: " + doctorId);
+
+                await _dbContext.BlackTokens.AddAsync(new BlackToken { Blacktoken = token });
+                await _dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                Console.WriteLine("Некорректный ID: не удалось извлечь или преобразовать id из токена.");
+            }
+        }
+
     }
 }

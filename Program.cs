@@ -8,6 +8,8 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using webNET_2024_aspnet_1.AdditionalServices.TokenHelpers;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,8 +50,17 @@ builder.Services.AddSwaggerGen(options =>
 
 });
 
+
+builder.Services.AddAuthorization(services =>
+{
+    services.AddPolicy("TokenBlackListPolicy", policy => policy.Requirements.Add(new TokenBlackListRequirment()));
+});
+
+
 builder.Services.AddScoped<IDoctorService, DoctorService>();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<TokenInteraction>();
+builder.Services.AddSingleton<IAuthorizationHandler, TokenBlackListPolicy>();
 
 
 var secretKey = builder.Configuration["AppSettings:Secret"];
