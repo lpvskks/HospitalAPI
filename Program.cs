@@ -61,6 +61,7 @@ builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<TokenInteraction>();
 builder.Services.AddSingleton<IAuthorizationHandler, TokenBlackListPolicy>();
+builder.Services.AddScoped<IPatientService, PatientService>();
 
 
 var secretKey = builder.Configuration["AppSettings:Secret"];
