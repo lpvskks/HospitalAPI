@@ -54,5 +54,15 @@ namespace webNET_2024_aspnet_1.Controllers
 
             return Ok(await _doctorService.GetProfile(token));
         }
+
+        [Authorize(Policy = "TokenBlackListPolicy")]
+        [HttpPut("edit")]
+        public async Task<IActionResult> EditProfile([FromBody] DoctorEditDTO doctorEditDTO)
+        {
+            string token = _tokenInteraction.GetTokenFromHeader();
+
+            await _doctorService.EditDoctorProfile(token, doctorEditDTO);
+            return Ok();
+        }
     }
 }

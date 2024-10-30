@@ -10,5 +10,6 @@ namespace webNET_2024_aspnet_1.Services.IServices
         public Task<TokenResponseDTO> Login(LoginCredentialsDTO loginCredentialsDTO);
         public Task Logout(string token);
         public Task<DoctorDTO> GetProfile(string token);
+        public Task EditDoctorProfile(string token, DoctorEditDTO doctorEditDTO);
     }
 }

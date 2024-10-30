@@ -128,5 +128,27 @@ namespace webNET_2024_aspnet_1.Services
             }
 
         }
+
+        public async Task EditDoctorProfile(string token, DoctorEditDTO doctorEditDTO)
+        {
+            string doctorId = _tokenHelper.GetIdFromToken(token);
+
+            var doctor = await _dbContext.Doctors.FirstOrDefaultAsync(d => d.Id == Guid.Parse(doctorId));
+            if (doctor != null)
+            {
+                doctor.Email = doctorEditDTO.Email;
+                doctor.Name = doctorEditDTO.Name;
+                doctor.Birthday = doctorEditDTO.Birthday;
+                doctor.Gender = doctorEditDTO.Gender;
+                doctor.Phone = doctorEditDTO.Phone;
+
+                await _dbContext.SaveChangesAsync();
+            }
+
+            else
+            {
+                throw new KeyNotFoundException("Пользователь не авторизован");
+            }
+        }
     }
 }
