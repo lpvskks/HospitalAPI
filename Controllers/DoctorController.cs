@@ -45,5 +45,14 @@ namespace webNET_2024_aspnet_1.Controllers
             return Ok();
 
         }
+
+        [Authorize(Policy = "TokenBlackListPolicy")]
+        [HttpGet("profile")]
+        public async Task<IActionResult> GetProfile()
+        {
+            string token = _tokenInteraction.GetTokenFromHeader();
+
+            return Ok(await _doctorService.GetProfile(token));
+        }
     }
 }

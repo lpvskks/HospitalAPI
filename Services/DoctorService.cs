@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Numerics;
+using System.Xml.Linq;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using webNET_2024_aspnet_1.Additional_Services.TokenHelpers;
 using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
@@ -103,5 +105,28 @@ namespace webNET_2024_aspnet_1.Services
             }
         }
 
+        public async Task<DoctorDTO> GetProfile(string token)
+        {
+            string doctorId = _tokenHelper.GetIdFromToken(token);
+            var doctor = await _dbContext.Doctors.FirstOrDefaultAsync(d => d.Id == Guid.Parse(doctorId));
+            if (doctor != null)
+            {
+                return new DoctorDTO
+                {
+                    Id = doctor.Id,
+                    CreateTime = doctor.CreateTime,
+                    Name = doctor.Name,
+                    Birthday = doctor.Birthday,
+                    Gender = doctor.Gender,
+                    Email = doctor.Email,
+                    Phone = doctor.Phone
+                };
+            }
+            else
+            {
+                throw new UnauthorizedAccessException("Пользователь не авторизован");
+            }
+
+        }
     }
 }
