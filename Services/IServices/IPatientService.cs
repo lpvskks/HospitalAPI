@@ -5,6 +5,6 @@ namespace webNET_2024_aspnet_1.Services.IServices
     public interface IPatientService
     {
         bool IsUniquePatient(string name);
-        public Task CreatePatient(PatientCreateDTO patientCreateDTO);
+        public Task<Guid> CreatePatient(PatientCreateDTO patientCreateDTO);
     }
 }

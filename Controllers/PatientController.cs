@@ -17,8 +17,8 @@ namespace webNET_2024_aspnet_1.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePatient([FromBody] PatientCreateDTO patientCreateDTO)
         {
-            await _patientService.CreatePatient(patientCreateDTO);
-            return Ok();
+           
+            return Ok(await _patientService.CreatePatient(patientCreateDTO));
         }
 
     }

@@ -24,7 +24,7 @@ namespace webNET_2024_aspnet_1.Services
             }
             return false;
         }
-        public async Task CreatePatient(PatientCreateDTO patientCreateDTO)
+        public async Task<Guid> CreatePatient(PatientCreateDTO patientCreateDTO)
         {
             if (!IsUniquePatient(patientCreateDTO.Name))
             {
@@ -41,6 +41,7 @@ namespace webNET_2024_aspnet_1.Services
 
             await _dbContext.AddAsync(patient);
             await _dbContext.SaveChangesAsync();
+            return patient.Id;
         }
     }
 }
