@@ -3,28 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\services\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:services\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\dbcontext\\dto\\patientdto\\patientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:dbcontext\\dto\\patientdto\\patientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:controllers\\patientcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\services\\iservices\\ipatientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:services\\iservices\\ipatientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\services\\doctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:services\\doctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\services\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:services\\patientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\dbcontext\\dto\\patientdto\\patientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:dbcontext\\dto\\patientdto\\patientdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:controllers\\doctorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\services\\doctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|solutionrelative:services\\doctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{05837A82-DEA3-4DA4-9288-69A9D452E930}|webNET-2024_aspnet_1.csproj|c:\\users\\\u043A\u0441\u044E\u0448\u0430\\source\\webnet-2024_aspnet_1\\dbcontext\\dto\\patientdto\\patientcreatedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -142,19 +142,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "PatientDTO.cs",
               "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\DBContext\\DTO\\PatientDTO\\PatientDTO.cs",
               "RelativeDocumentMoniker": "DBContext\\DTO\\PatientDTO\\PatientDTO.cs",
               "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\DBContext\\DTO\\PatientDTO\\PatientDTO.cs",
               "RelativeToolTip": "DBContext\\DTO\\PatientDTO\\PatientDTO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAqAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-31T11:07:01.914Z",
+              "WhenOpened": "2024-10-31T11:35:01.977Z",
               "EditorCaption": ""
             },
             {
@@ -178,22 +178,74 @@
               "RelativeDocumentMoniker": "DBContext\\Models\\Patient.cs",
               "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\DBContext\\Models\\Patient.cs",
               "RelativeToolTip": "DBContext\\Models\\Patient.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAQAAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwBIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-30T20:34:57.987Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "PatientController.cs",
               "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Controllers\\PatientController.cs",
               "RelativeDocumentMoniker": "Controllers\\PatientController.cs",
-              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Controllers\\PatientController.cs",
-              "RelativeToolTip": "Controllers\\PatientController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABkAAAAAAAAA",
+              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Controllers\\PatientController.cs*",
+              "RelativeToolTip": "Controllers\\PatientController.cs*",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAAwBgAAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-30T21:08:50.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "DoctorController.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Controllers\\DoctorController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DoctorController.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Controllers\\DoctorController.cs",
+              "RelativeToolTip": "Controllers\\DoctorController.cs",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAqwEEAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-27T13:20:41.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PatientService.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\PatientService.cs",
+              "RelativeDocumentMoniker": "Services\\PatientService.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\PatientService.cs*",
+              "RelativeToolTip": "Services\\PatientService.cs*",
+              "ViewState": "AQIAACsAAAAAAAAAAAAgwDMAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T21:07:58.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DoctorService.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\DoctorService.cs",
+              "RelativeDocumentMoniker": "Services\\DoctorService.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\DoctorService.cs",
+              "RelativeToolTip": "Services\\DoctorService.cs",
+              "ViewState": "AQIAAGkAAAAAAAAAAAAowH8AAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T15:59:02.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IPatientService.cs",
+              "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\IServices\\IPatientService.cs",
+              "RelativeDocumentMoniker": "Services\\IServices\\IPatientService.cs",
+              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\IServices\\IPatientService.cs",
+              "RelativeToolTip": "Services\\IServices\\IPatientService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-30T20:59:40.017Z",
               "EditorCaption": ""
             },
             {
@@ -207,58 +259,6 @@
               "ViewState": "AQIAABIAAAAAAAAAAAAAAD8AAAA+AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-21T17:09:21.299Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DoctorController.cs",
-              "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Controllers\\DoctorController.cs",
-              "RelativeDocumentMoniker": "Controllers\\DoctorController.cs",
-              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Controllers\\DoctorController.cs",
-              "RelativeToolTip": "Controllers\\DoctorController.cs",
-              "ViewState": "AQIAACYAAAAAAAAAAAAgwEEAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T13:20:41.701Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PatientService.cs",
-              "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\PatientService.cs",
-              "RelativeDocumentMoniker": "Services\\PatientService.cs",
-              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\PatientService.cs",
-              "RelativeToolTip": "Services\\PatientService.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAAAYwCsAAAAeAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T21:07:58.732Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DoctorService.cs",
-              "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\DoctorService.cs",
-              "RelativeDocumentMoniker": "Services\\DoctorService.cs",
-              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\DoctorService.cs",
-              "RelativeToolTip": "Services\\DoctorService.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAgwDgAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T15:59:02.04Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "IPatientService.cs",
-              "DocumentMoniker": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\IServices\\IPatientService.cs",
-              "RelativeDocumentMoniker": "Services\\IServices\\IPatientService.cs",
-              "ToolTip": "C:\\Users\\\u041A\u0441\u044E\u0448\u0430\\source\\webNET-2024_aspnet_1\\Services\\IServices\\IPatientService.cs",
-              "RelativeToolTip": "Services\\IServices\\IPatientService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAZAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T20:59:40.017Z",
               "EditorCaption": ""
             },
             {

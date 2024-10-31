@@ -1,4 +1,5 @@
-﻿using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
+﻿using Microsoft.EntityFrameworkCore;
+using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
 using webNET_2024_aspnet_1.DBContext;
 using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
 using webNET_2024_aspnet_1.DBContext.DTO.PatientDTO;
@@ -42,6 +43,26 @@ namespace webNET_2024_aspnet_1.Services
             await _dbContext.AddAsync(patient);
             await _dbContext.SaveChangesAsync();
             return patient.Id;
+        }
+
+        public async Task<PatientDTO> GetPatientCard(Guid id)
+        {
+            var patient = await _dbContext.Patients.FirstOrDefaultAsync(p => p.Id == id);
+            if (patient != null)
+            {
+                return new PatientDTO
+                {
+                    Id = patient.Id,
+                    Name = patient.Name,
+                    Birthday = patient.Birthday,
+                    Gender = patient.Gender,
+                    CreateTime = DateTime.UtcNow
+                };
+            }
+            else
+            {
+                throw new Exception("Patient card was not found.");
+            }
         }
     }
 }

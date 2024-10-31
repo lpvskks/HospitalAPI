@@ -21,5 +21,11 @@ namespace webNET_2024_aspnet_1.Controllers
             return Ok(await _patientService.CreatePatient(patientCreateDTO));
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetPatientCard(Guid id)
+        {
+            return Ok(await _patientService.GetPatientCard(id));
+        }
+
     }
 }
