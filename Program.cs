@@ -94,6 +94,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<AppDBContext>();
+    await dbContext.Database.MigrateAsync(); 
+
+    var dictionaryService = services.GetRequiredService<IDictionaryService>();
+    string filePath = "C:/Users/Êñþøà/Projects/Backend/1.2.643.5.1.13.13.11.1005_2.27.json";
+    await dictionaryService.AddDataIcd(filePath); 
+}
+
 app.UseHttpsRedirection();
 app.UseAuthentication(); 
 app.UseAuthorization();

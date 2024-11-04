@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("webNET-2024_aspnet_1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdb0d7c9fc046702f40968e53bd4d2b372a4b214")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+76e627ff1be66c42832ceb7630df02702b6eb0c0")]
 [assembly: System.Reflection.AssemblyProductAttribute("webNET-2024_aspnet_1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("webNET-2024_aspnet_1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

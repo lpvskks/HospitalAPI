@@ -112,3 +112,4 @@ C:\Users\Ксюша\source\webNET-2024_aspnet_1\obj\Debug\net8.0\webNET-2024_asp
 C:\Users\Ксюша\source\webNET-2024_aspnet_1\obj\Debug\net8.0\webNET-2024_aspnet_1.genruntimeconfig.cache
 C:\Users\Ксюша\source\webNET-2024_aspnet_1\obj\Debug\net8.0\ref\webNET-2024_aspnet_1.dll
 C:\Users\Ксюша\source\webNET-2024_aspnet_1\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Users\Ксюша\source\webNET-2024_aspnet_1\bin\Debug\net8.0\Newtonsoft.Json.dll

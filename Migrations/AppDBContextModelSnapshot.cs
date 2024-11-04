@@ -73,6 +73,44 @@ namespace webNET_2024_aspnet_1.Migrations
                     b.ToTable("Doctors");
                 });
 
+            modelBuilder.Entity("webNET_2024_aspnet_1.DBContext.Models.IcdTen", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int?>("Actual")
+                        .HasColumnType("integer")
+                        .HasColumnName("ACTUAL");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("text")
+                        .HasColumnName("MKB_CODE");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text")
+                        .HasColumnName("MKB_NAME");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("integer")
+                        .HasColumnName("ID_PARENT");
+
+                    b.Property<string>("RecordCode")
+                        .HasColumnType("text")
+                        .HasColumnName("REC_CODE");
+
+                    b.Property<int>("UnicalId")
+                        .HasColumnType("integer")
+                        .HasColumnName("ID");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IcdTens");
+                });
+
             modelBuilder.Entity("webNET_2024_aspnet_1.DBContext.Models.Patient", b =>
                 {
                     b.Property<Guid>("Id")

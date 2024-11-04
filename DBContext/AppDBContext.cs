@@ -10,7 +10,7 @@ namespace webNET_2024_aspnet_1.DBContext
         public DbSet<BlackToken> BlackTokens { get; set; }
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Speciality> Specialties { get; set; }
-
+        public DbSet<IcdTen> IcdTens { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
