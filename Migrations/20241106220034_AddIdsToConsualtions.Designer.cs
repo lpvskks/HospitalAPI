@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using webNET_2024_aspnet_1.DBContext;
@@ -11,9 +12,11 @@ using webNET_2024_aspnet_1.DBContext;
 namespace webNET_2024_aspnet_1.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241106220034_AddIdsToConsualtions")]
+    partial class AddIdsToConsualtions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,17 +55,12 @@ namespace webNET_2024_aspnet_1.Migrations
                     b.Property<Guid>("InspectionId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("RootCommentId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("SpecialityId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("InspectionId");
-
-                    b.HasIndex("RootCommentId");
 
                     b.HasIndex("SpecialityId");
 
@@ -256,6 +254,9 @@ namespace webNET_2024_aspnet_1.Migrations
 
                     b.HasIndex("AuthorId");
 
+                    b.HasIndex("ConsultationId")
+                        .IsUnique();
+
                     b.ToTable("InspectionComments");
                 });
 
@@ -419,17 +420,11 @@ namespace webNET_2024_aspnet_1.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("webNET_2024_aspnet_1.DBContext.Models.InspectionComment", "RootComment")
-                        .WithMany()
-                        .HasForeignKey("RootCommentId");
-
                     b.HasOne("webNET_2024_aspnet_1.DBContext.Models.Speciality", "Speciality")
                         .WithMany()
                         .HasForeignKey("SpecialityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("RootComment");
 
                     b.Navigation("Speciality");
                 });
@@ -470,7 +465,18 @@ namespace webNET_2024_aspnet_1.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("webNET_2024_aspnet_1.DBContext.Models.Consultation", null)
+                        .WithOne("RootComment")
+                        .HasForeignKey("webNET_2024_aspnet_1.DBContext.Models.InspectionComment", "ConsultationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("webNET_2024_aspnet_1.DBContext.Models.Consultation", b =>
+                {
+                    b.Navigation("RootComment");
                 });
 
             modelBuilder.Entity("webNET_2024_aspnet_1.DBContext.Models.Inspection", b =>

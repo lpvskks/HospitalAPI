@@ -11,9 +11,14 @@ namespace webNET_2024_aspnet_1.DBContext
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Speciality> Specialties { get; set; }
         public DbSet<IcdTen> IcdTens { get; set; }
+        public DbSet<Consultation> Consultations { get; set; }
+        public DbSet<Diagnosis> Diagnoses { get; set; }
+        public DbSet<Inspection> Inspections { get; set; }
+        public DbSet<InspectionComment> InspectionComments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Consultation>().HasOne(c => c.RootComment).WithMany().HasForeignKey(c => c.RootCommentId);
 
             modelBuilder.Entity<Speciality>().HasData(
                 new Speciality { Id = Guid.Parse("e8f93a49-b93f-47f0-a912-08dbffad6d0e"), Name = "Акушер-гинеколог", CreateTime = DateTime.SpecifyKind(DateTime.Parse("2023-12-18T16:40:53.0123266"), DateTimeKind.Utc) },

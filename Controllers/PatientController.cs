@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using webNET_2024_aspnet_1.Additional_Services.TokenHelpers;
+using webNET_2024_aspnet_1.DBContext.DTO.InspectionDTO;
 using webNET_2024_aspnet_1.DBContext.DTO.PatientDTO;
 using webNET_2024_aspnet_1.Services.IServices;
 
@@ -10,9 +12,13 @@ namespace webNET_2024_aspnet_1.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IPatientService _patientService;
-        public PatientController(IPatientService patientService)
+        private readonly IInspectionService _inspectionService;
+        private readonly TokenInteraction _tokenInteraction;
+        public PatientController(IPatientService patientService, IInspectionService inspectionService, TokenInteraction tokenInteraction)
         {
             _patientService = patientService;
+            _inspectionService = inspectionService;
+            _tokenInteraction = tokenInteraction;
         }
         [HttpPost]
         public async Task<IActionResult> CreatePatient([FromBody] PatientCreateDTO patientCreateDTO)
@@ -27,5 +33,17 @@ namespace webNET_2024_aspnet_1.Controllers
             return Ok(await _patientService.GetPatientCard(id));
         }
 
+        [HttpPost("{id}/inspections")]
+        public async Task<IActionResult> CreateInspection(Guid id, InspectionCreateDTO inspectionCreateDTO)
+        {
+            string token = _tokenInteraction.GetTokenFromHeader();
+            if (token == null)
+            {
+                throw new UnauthorizedAccessException("Данный пользователь не авторизован");
+            }
+            var idString = _tokenInteraction.GetIdFromToken(token);
+            Guid doctorId = Guid.Parse(idString);
+            return Ok(await _inspectionService.CreateInspection(id, doctorId, inspectionCreateDTO));
+        }
     }
 }

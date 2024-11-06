@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using webNET_2024_aspnet_1.DBContext;
@@ -11,9 +12,11 @@ using webNET_2024_aspnet_1.DBContext;
 namespace webNET_2024_aspnet_1.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    partial class AppDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241106215826_AddIdsToDiagCons")]
+    partial class AddIdsToDiagCons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +55,10 @@ namespace webNET_2024_aspnet_1.Migrations
                     b.Property<Guid>("InspectionId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("RootCommentId")
+                    b.Property<Guid>("RootCommentId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("RootCommentId1")
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("SpecialityId")
@@ -62,7 +68,7 @@ namespace webNET_2024_aspnet_1.Migrations
 
                     b.HasIndex("InspectionId");
 
-                    b.HasIndex("RootCommentId");
+                    b.HasIndex("RootCommentId1");
 
                     b.HasIndex("SpecialityId");
 
@@ -421,7 +427,7 @@ namespace webNET_2024_aspnet_1.Migrations
 
                     b.HasOne("webNET_2024_aspnet_1.DBContext.Models.InspectionComment", "RootComment")
                         .WithMany()
-                        .HasForeignKey("RootCommentId");
+                        .HasForeignKey("RootCommentId1");
 
                     b.HasOne("webNET_2024_aspnet_1.DBContext.Models.Speciality", "Speciality")
                         .WithMany()
