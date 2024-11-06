@@ -17,10 +17,17 @@ namespace webNET_2024_aspnet_1.Controllers
         }
 
         [HttpGet("specialities")]
-        public async Task<IActionResult> GetSpecialities(string name = null, int page = 1, int size = 10)
+        public async Task<IActionResult> GetSpecialities(string name = null, int page = 1, int size = 5)
         {
             var specialitiesPagesListDTO = await _dictionaryService.GetPaginatedSpecialities(name, page, size);
             return Ok(specialitiesPagesListDTO);
+        }
+
+        [HttpGet("icd10")]
+        public async Task<IActionResult> GetIcdTenRecords(string request = null,  int page = 1,  int size = 5)
+        {
+            var result = await _dictionaryService.SearchIcdTenRecords(request, page, size);
+            return Ok(result);
         }
     }
 }

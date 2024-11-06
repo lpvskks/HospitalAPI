@@ -79,5 +79,39 @@ namespace webNET_2024_aspnet_1.Services
             await _dbContext.IcdTens.AddRangeAsync(icdTens);
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<IcdTenSearchDTO> SearchIcdTenRecords(string request, int page, int size)
+        {
+            var query = _dbContext.IcdTens.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(request))
+            {
+                query = query.Where(r => r.Code.Contains(request) || r.Name.Contains(request));
+            }
+
+            query = query.OrderBy(r => r.Code != request).ThenBy(r => r.Code).ThenBy(r => r.Name);           
+
+            var totalCount = await query.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalCount / size);
+
+            var records = await query.Skip((page - 1) * size).Take(size).Select(r => new IcdTenRecordDTO 
+            {
+                Id = r.Id,
+                CreateTime = r.CreateTime,
+                Code = r.Code,
+                Name = r.Name
+            }).ToListAsync();
+
+            return new IcdTenSearchDTO
+            {
+                Records = records,
+                Pagination = new PageInfoDTO
+                {
+                    Size = size,
+                    Count = totalPages, 
+                    Current = page    
+                }
+            };
+        }
     }
 }
