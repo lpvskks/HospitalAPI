@@ -21,5 +21,11 @@ namespace webNET_2024_aspnet_1.Controllers
             await _inspectionService.EditInspection(id, inspectionEditDTO);
             return Ok();
         }
+
+        [HttpGet("{id}")]
+        public async Task <IActionResult> GetConcreteInspection(Guid id)
+        {
+            return Ok(await _inspectionService.GetConcreteInspection(id));
+        }
     }
 }

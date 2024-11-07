@@ -7,5 +7,6 @@ namespace webNET_2024_aspnet_1.Services.IServices
     {
        public Task<Guid> CreateInspection(Guid patientId, Guid doctorId, InspectionCreateDTO inspectionCreateDTO);
         public Task EditInspection(Guid inspectionId, InspectionEditDTO inspectionEditDTO);
+        public Task<InspectionDTO> GetConcreteInspection(Guid inspectionId);
     }
 }

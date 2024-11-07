@@ -146,5 +146,68 @@ namespace webNET_2024_aspnet_1.Services
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<InspectionDTO> GetConcreteInspection(Guid inspectionId)
+        {
+            var inspection = await _dbContext.Inspections
+                .Include(i => i.Patient)
+                .Include(i => i.Doctor)
+                .Include(i => i.Diagnoses)
+                .Include(i => i.Consultations)
+                    .ThenInclude(c => c.RootComment)
+                .FirstOrDefaultAsync(i => i.Id == inspectionId);
+
+            if (inspection == null)
+            {
+                throw new BadHttpRequestException("This inspection not found");
+            }
+
+            var inspectionDTO = new InspectionDTO
+            {
+                Id = inspection.Id,
+                CreateTime = inspection.CreateTime,
+                Date = inspection.Date,
+                Anamnesis = inspection.Anamnesis ?? null,
+                Complaints = inspection.Complaints ?? null,
+                Treatment = inspection.Treatment ?? null,
+                Conclusion = inspection.Conclusion,
+                NextVisitDate = inspection.NextVisitDate,
+                DeathDate = inspection.DeathDate,
+                BaseInspectionId = inspection.BaseInspectionId,
+                PreviousInspectionId = inspection.PreviousInspectionId,
+                Patient = inspection.Patient ?? null,
+                Doctor = inspection.Doctor ?? null,
+                Diagnoses = inspection.Diagnoses?.Select(d => new DiagnosisDTO
+                {
+                    Id = d.Id,
+                    CreateTime = d.CreateTime,
+                    Code = d.Code ?? string.Empty,
+                    Name = d.Name ?? string.Empty,
+                    Description = d.Description,
+                    Type = d.Type
+                }).ToList(),
+                Consultations = inspection.Consultations != null && inspection.Consultations.Any()
+                    ? inspection.Consultations.Select(c => new ConsultationDTO
+                    {
+                        Id = c.Id,
+                        CreateTime = c.CreateTime,
+                        InspectionId = c.InspectionId,
+                        Speciality = c.Speciality ?? null,
+                        RootCommentId = c.RootCommentId,
+                        RootComment = c.RootComment != null ? new InspectionCommentDTO
+                        {
+                            Content = c.RootComment.Content ?? null,
+                            Author = c.RootComment.Author ?? null,
+                            CreateTime = c.RootComment.CreateTime,
+                            Id = c.RootComment.Id,
+                            ParentId = c.RootComment.ParentId ?? null,
+                            ModifyTime = c.RootComment.ModifyTime,
+                        } : null,
+                        CommentsNumber = c.CommentsNumber
+                    }).ToList()
+                    : null
+            };
+
+            return inspectionDTO;
+        }
     }
 }
