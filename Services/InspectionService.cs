@@ -15,7 +15,7 @@ namespace webNET_2024_aspnet_1.Services
             _dbContext = dbContext;
         }
 
-        public async Task<Guid> CreateInspection(Guid patientId,Guid doctorId, InspectionCreateDTO inspectionCreateDTO)
+        public async Task<Guid> CreateInspection(Guid patientId, Guid doctorId, InspectionCreateDTO inspectionCreateDTO)
         {
             var patient = await _dbContext.Patients.FindAsync(patientId);
             if (patient == null)
@@ -23,7 +23,8 @@ namespace webNET_2024_aspnet_1.Services
                 throw new BadHttpRequestException("Patient not found!");
             }
             var doctor = await _dbContext.Doctors.FindAsync(doctorId);
-            if (doctor == null) {
+            if (doctor == null)
+            {
                 throw new BadHttpRequestException("You are not doctor");
             }
             Inspection inspection = new Inspection()
@@ -98,6 +99,51 @@ namespace webNET_2024_aspnet_1.Services
             _dbContext.Inspections.Add(inspection);
             await _dbContext.SaveChangesAsync();
             return inspection.Id;
+        }
+
+        public async Task EditInspection(Guid inspectionId, InspectionEditDTO inspectionEditDTO)
+        {
+            var inspection = await _dbContext.Inspections
+                .Include(i => i.Diagnoses) 
+                .FirstOrDefaultAsync(i => i.Id == inspectionId);
+
+            if (inspection == null)
+            {
+                throw new BadHttpRequestException("Inspection not found!");
+            }
+
+            var newDiagnoses = new List<Diagnosis>();
+
+            foreach (var diagnosisDTO in inspectionEditDTO.Diagnoses)
+            {
+                var diagnos = await _dbContext.IcdTens.FirstOrDefaultAsync(d => d.Id == diagnosisDTO.IcdDiagnosisId);
+                if (diagnos == null)
+                {
+                    throw new BadHttpRequestException("Diagnosis not found!");
+                }
+                Diagnosis diagnosis = new Diagnosis()
+                {
+                    Id = Guid.NewGuid(),
+                    CreateTime = DateTime.UtcNow,
+                    Code = diagnos.Code,
+                    Name = diagnos.Name,
+                    Description = diagnosisDTO.Description,
+                    Type = diagnosisDTO.Type
+                };
+                newDiagnoses.Add(diagnosis);
+                _dbContext.Diagnoses.Add(diagnosis);
+            }
+            _dbContext.Diagnoses.RemoveRange(inspection.Diagnoses);
+
+            inspection.Anamnesis = inspectionEditDTO.Anamnesis;
+            inspection.Complaints = inspectionEditDTO.Complaints;
+            inspection.Treatment = inspectionEditDTO.Treatment;
+            inspection.Conclusion = inspectionEditDTO.Conclusion;
+            inspection.NextVisitDate = inspectionEditDTO.NextVisitDate;
+            inspection.DeathDate = inspectionEditDTO.DeathDate;
+            inspection.Diagnoses = newDiagnoses; 
+
+            await _dbContext.SaveChangesAsync();
         }
 
     }
