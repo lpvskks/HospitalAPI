@@ -22,5 +22,7 @@ namespace webNET_2024_aspnet_1.DBContext.Models
         public Doctor Doctor { get; set; }
         public List<Diagnosis> Diagnoses { get; set; }
         public List<Consultation> Consultations { get; set; }
+        public Boolean HasNested {  get; set; }
+        public Boolean HasChain { get; set; }
     }
 }

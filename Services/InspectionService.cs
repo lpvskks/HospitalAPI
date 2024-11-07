@@ -44,6 +44,26 @@ namespace webNET_2024_aspnet_1.Services
                 Diagnoses = new List<Diagnosis>(),
                 Consultations = new List<Consultation>()
             };
+            Boolean hasPreviousId = inspectionCreateDTO.PreviousInspectionId != null;
+            if (hasPreviousId)
+            {
+                var rootInspection = await _dbContext.Inspections.FirstOrDefaultAsync(i => i.Id == inspectionCreateDTO.PreviousInspectionId);
+                if (rootInspection == null)
+                {
+                    throw new NotFoundException("Такого корневого элемента не существует!");
+                }
+                if (rootInspection.HasNested)
+                {
+                    throw new BadRequestException("У этого осмотра уже есть потомок!");
+                }
+                rootInspection.HasNested = true;
+                if(rootInspection.PreviousInspectionId == null)
+                {
+                    inspection.BaseInspectionId = rootInspection.Id;
+                }
+                else { inspection.BaseInspectionId = rootInspection.BaseInspectionId; }
+                inspection.PreviousInspectionId = rootInspection.Id;
+            }
             foreach (var diagnosisDTO in inspectionCreateDTO.Diagnoses)
             {
                 var diagnos = await _dbContext.IcdTens.FirstOrDefaultAsync(d => d.Id == diagnosisDTO.IcdDiagnosisId);
