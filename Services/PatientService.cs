@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using webNET_2024_aspnet_1.AdditionalServices.Exceptions;
 using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
 using webNET_2024_aspnet_1.DBContext;
 using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
@@ -29,7 +30,7 @@ namespace webNET_2024_aspnet_1.Services
         {
             if (!IsUniquePatient(patientCreateDTO.Name))
             {
-                throw new Exception("Такой пациент уже существует");
+                throw new BadRequestException("Такой пациент уже существует");
             }
             Patient patient = new Patient()
             {
@@ -61,7 +62,7 @@ namespace webNET_2024_aspnet_1.Services
             }
             else
             {
-                throw new Exception("Patient card was not found.");
+                throw new NotFoundException("Такого пациента не существует.");
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Xml.Linq;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using webNET_2024_aspnet_1.Additional_Services.TokenHelpers;
+using webNET_2024_aspnet_1.AdditionalServices.Exceptions;
 using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
 using webNET_2024_aspnet_1.AdditionalServices.Validators;
 using webNET_2024_aspnet_1.DBContext;
@@ -37,12 +38,12 @@ namespace webNET_2024_aspnet_1.Services
         {
             if (!IsUniqueDoctor(doctorRegisterDTO.Email))
             {
-                throw new Exception("Email уже используется");
+                throw new BadRequestException("Email уже используется");
             }
 
             if (!NameValidator.IsValidName(doctorRegisterDTO.Name))
             {
-                throw new Exception("Неправильный формат имени. Имя и фамилия должны начинаться с заглавной буквы. Допускаются только буквы и тире. Отчество является необязательным.");
+                throw new BadRequestException("Неправильный формат имени. Имя и фамилия должны начинаться с заглавной буквы. Допускаются только буквы и тире. Отчество является необязательным.");
             }
 
             Doctor doctor = new Doctor()
@@ -72,11 +73,11 @@ namespace webNET_2024_aspnet_1.Services
             var doctor = await _dbContext.Doctors.FirstOrDefaultAsync(d => d.Email == loginCredentialsDTO.Email);
             if (doctor == null)
             {
-                throw new ("Неправильный Email или пароль");
+                throw new BadRequestException("Неправильный Email или пароль");
             }
             else if (!HashPassword.VerifyPassword(loginCredentialsDTO.Password, doctor.Password))
             {
-                throw new ("Неправильный Email или пароль");
+                throw new BadRequestException("Неправильный Email или пароль");
             }
 
             var token = _tokenHelper.GenerateToken(doctor);
@@ -90,18 +91,15 @@ namespace webNET_2024_aspnet_1.Services
         public async Task Logout(string token)
         {
             string id = _tokenHelper.GetIdFromToken(token);
-            Console.WriteLine("Извлечённый id: " + id);
 
             if (Guid.TryParse(id, out Guid doctorId) && doctorId != Guid.Empty)
             {
-                Console.WriteLine("Преобразованный doctorId: " + doctorId);
-
                 await _dbContext.BlackTokens.AddAsync(new BlackToken { Blacktoken = token });
                 await _dbContext.SaveChangesAsync();
             }
             else
             {
-                Console.WriteLine("Некорректный ID: не удалось извлечь или преобразовать id из токена.");
+                throw new BadRequestException("Некорректный ID: не удалось извлечь или преобразовать id из токена.");
             }
         }
 
@@ -124,7 +122,7 @@ namespace webNET_2024_aspnet_1.Services
             }
             else
             {
-                throw new UnauthorizedAccessException("Пользователь не авторизован");
+                throw new UnauthorizedException("Пользователь не авторизован");
             }
 
         }
@@ -147,7 +145,7 @@ namespace webNET_2024_aspnet_1.Services
 
             else
             {
-                throw new KeyNotFoundException("Пользователь не авторизован");
+                throw new UnauthorizedException("Пользователь не авторизован");
             }
         }
     }

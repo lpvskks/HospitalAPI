@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using webNET_2024_aspnet_1.AdditionalServices.Exceptions;
 using webNET_2024_aspnet_1.DBContext;
 using webNET_2024_aspnet_1.DBContext.DTO.InspectionDTO;
 using webNET_2024_aspnet_1.DBContext.Models;
@@ -20,12 +21,12 @@ namespace webNET_2024_aspnet_1.Services
             var patient = await _dbContext.Patients.FindAsync(patientId);
             if (patient == null)
             {
-                throw new BadHttpRequestException("Patient not found!");
+                throw new NotFoundException("Пациент не найден.");
             }
             var doctor = await _dbContext.Doctors.FindAsync(doctorId);
             if (doctor == null)
             {
-                throw new BadHttpRequestException("You are not doctor");
+                throw new ForbiddenException("Вы не доктор.");
             }
             Inspection inspection = new Inspection()
             {
@@ -47,7 +48,7 @@ namespace webNET_2024_aspnet_1.Services
                 var diagnos = await _dbContext.IcdTens.FirstOrDefaultAsync(d => d.Id == diagnosisDTO.IcdDiagnosisId);
                 if (diagnos == null)
                 {
-                    throw new BadHttpRequestException("Diagnosis not found!");
+                    throw new NotFoundException("Диагноз не найден.");
                 }
                 Diagnosis diagnosis = new Diagnosis()
                 {
@@ -65,7 +66,7 @@ namespace webNET_2024_aspnet_1.Services
                 var speciality = await _dbContext.Specialties.FirstOrDefaultAsync(d => d.Id == consultationDTO.SpecialityId);
                 if (speciality == null)
                 {
-                    throw new BadHttpRequestException("Speciality not found!");
+                    throw new NotFoundException("Специальность не найдена.");
                 }
 
                 bool isCommented = !string.IsNullOrEmpty(consultationDTO.Comment?.Content);
@@ -109,7 +110,7 @@ namespace webNET_2024_aspnet_1.Services
 
             if (inspection == null)
             {
-                throw new BadHttpRequestException("Inspection not found!");
+                throw new NotFoundException("Осмотр не найден.");
             }
 
             var newDiagnoses = new List<Diagnosis>();
@@ -119,7 +120,7 @@ namespace webNET_2024_aspnet_1.Services
                 var diagnos = await _dbContext.IcdTens.FirstOrDefaultAsync(d => d.Id == diagnosisDTO.IcdDiagnosisId);
                 if (diagnos == null)
                 {
-                    throw new BadHttpRequestException("Diagnosis not found!");
+                    throw new NotFoundException("Диагноз не найден.");
                 }
                 Diagnosis diagnosis = new Diagnosis()
                 {
@@ -158,7 +159,7 @@ namespace webNET_2024_aspnet_1.Services
 
             if (inspection == null)
             {
-                throw new BadHttpRequestException("This inspection not found");
+                throw new NotFoundException("Такого осмотра не сущетсвует!");
             }
 
             var inspectionDTO = new InspectionDTO

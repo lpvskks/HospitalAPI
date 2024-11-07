@@ -10,6 +10,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using webNET_2024_aspnet_1.AdditionalServices.TokenHelpers;
 using Microsoft.AspNetCore.Authorization;
+using webNET_2024_aspnet_1.AdditionalServices.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -94,7 +95,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseMiddleware<MiddleWare>();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
