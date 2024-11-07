@@ -27,5 +27,6 @@ namespace webNET_2024_aspnet_1.Controllers
         {
             return Ok(await _inspectionService.GetConcreteInspection(id));
         }
+
     }
 }

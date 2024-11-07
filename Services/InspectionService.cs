@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using webNET_2024_aspnet_1.AdditionalServices.Exceptions;
 using webNET_2024_aspnet_1.DBContext;
+using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
 using webNET_2024_aspnet_1.DBContext.DTO.InspectionDTO;
 using webNET_2024_aspnet_1.DBContext.Models;
 using webNET_2024_aspnet_1.Services.IServices;
@@ -81,13 +82,13 @@ namespace webNET_2024_aspnet_1.Services
                         Content = consultationDTO.Comment.Content,
                         Author = doctor,
                         ModifyTime = DateTime.UtcNow,
-                        ConsultationId = inspection.Id
+                        ConsultationId = Guid.NewGuid()
                     };
-                    await _dbContext.InspectionComments.AddAsync(inspectionComment);
+                    _dbContext.InspectionComments.Add(inspectionComment);
                 }
                 Consultation consultation = new Consultation()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = isCommented ? inspectionComment.ConsultationId : Guid.NewGuid(),
                     CreateTime = DateTime.UtcNow,
                     Speciality = speciality,
                     InspectionId = inspection.Id,
@@ -155,6 +156,8 @@ namespace webNET_2024_aspnet_1.Services
                 .Include(i => i.Diagnoses)
                 .Include(i => i.Consultations)
                     .ThenInclude(c => c.RootComment)
+                .Include(i => i.Consultations)
+                .ThenInclude(c => c.Speciality)
                 .FirstOrDefaultAsync(i => i.Id == inspectionId);
 
             if (inspection == null)
@@ -176,7 +179,16 @@ namespace webNET_2024_aspnet_1.Services
                 BaseInspectionId = inspection.BaseInspectionId,
                 PreviousInspectionId = inspection.PreviousInspectionId,
                 Patient = inspection.Patient ?? null,
-                Doctor = inspection.Doctor ?? null,
+                Doctor = new AuthorDTO
+                {
+                    Id = inspection.Doctor.Id,
+                    CreateTime = inspection.Doctor.CreateTime,
+                    Name = inspection.Doctor.Name,
+                    Birthday = inspection.Doctor.Birthday,
+                    Gender = inspection.Doctor.Gender,
+                    Email = inspection.Doctor.Email,
+                    Phone = inspection.Doctor.Phone
+                },
                 Diagnoses = inspection.Diagnoses?.Select(d => new DiagnosisDTO
                 {
                     Id = d.Id,
@@ -197,7 +209,16 @@ namespace webNET_2024_aspnet_1.Services
                         RootComment = c.RootComment != null ? new InspectionCommentDTO
                         {
                             Content = c.RootComment.Content ?? null,
-                            Author = c.RootComment.Author ?? null,
+                            Author = new AuthorDTO
+                            {
+                                Id = c.RootComment.Author.Id,
+                                CreateTime = c.RootComment.Author.CreateTime,
+                                Name = c.RootComment.Author.Name,
+                                Birthday = c.RootComment.Author.Birthday,
+                                Gender = c.RootComment.Author.Gender,
+                                Email = c.RootComment.Author.Email,
+                                Phone = c.RootComment.Author.Phone
+                            } ?? null,
                             CreateTime = c.RootComment.CreateTime,
                             Id = c.RootComment.Id,
                             ParentId = c.RootComment.ParentId ?? null,

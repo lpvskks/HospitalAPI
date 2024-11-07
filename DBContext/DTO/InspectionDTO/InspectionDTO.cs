@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using webNET_2024_aspnet_1.DBContext.Models.Enums;
 using webNET_2024_aspnet_1.DBContext.Models;
+using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
 
 namespace webNET_2024_aspnet_1.DBContext.DTO.InspectionDTO
 {
@@ -20,7 +21,7 @@ namespace webNET_2024_aspnet_1.DBContext.DTO.InspectionDTO
         public Guid? BaseInspectionId { get; set; }
         public Guid? PreviousInspectionId { get; set; }
         public Patient Patient { get; set; }
-        public Doctor Doctor { get; set; }
+        public AuthorDTO Doctor { get; set; }
         public List<DiagnosisDTO> Diagnoses { get; set; }
         public List<ConsultationDTO> Consultations { get; set; }
     }
