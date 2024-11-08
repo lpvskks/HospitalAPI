@@ -28,5 +28,10 @@ namespace webNET_2024_aspnet_1.Controllers
             return Ok(await _inspectionService.GetConcreteInspection(id));
         }
 
+        [HttpGet("{id}/chain")]
+        public async Task<IActionResult> GetNestedInpections(Guid id)
+        {
+            return Ok(await _inspectionService.GetNestedInspections(id));
+        }
     }
 }

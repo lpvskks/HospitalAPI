@@ -4,6 +4,7 @@ using webNET_2024_aspnet_1.DBContext;
 using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
 using webNET_2024_aspnet_1.DBContext.DTO.InspectionDTO;
 using webNET_2024_aspnet_1.DBContext.Models;
+using webNET_2024_aspnet_1.DBContext.Models.Enums;
 using webNET_2024_aspnet_1.Services.IServices;
 
 namespace webNET_2024_aspnet_1.Services
@@ -60,6 +61,7 @@ namespace webNET_2024_aspnet_1.Services
                 if(rootInspection.PreviousInspectionId == null)
                 {
                     inspection.BaseInspectionId = rootInspection.Id;
+                    rootInspection.HasChain = true;
                 }
                 else { inspection.BaseInspectionId = rootInspection.BaseInspectionId; }
                 inspection.PreviousInspectionId = rootInspection.Id;
@@ -136,13 +138,21 @@ namespace webNET_2024_aspnet_1.Services
 
             var newDiagnoses = new List<Diagnosis>();
 
+            bool hasMainDiagnosis = newDiagnoses.Any(d => d.Type == DiagnosisType.Main);
+
             foreach (var diagnosisDTO in inspectionEditDTO.Diagnoses)
             {
+                if (diagnosisDTO.Type == DiagnosisType.Main && hasMainDiagnosis)
+                {
+                    throw new BadRequestException("Нельзя добавить более одного основного диагноза.");
+                }
+
                 var diagnos = await _dbContext.IcdTens.FirstOrDefaultAsync(d => d.Id == diagnosisDTO.IcdDiagnosisId);
                 if (diagnos == null)
                 {
                     throw new NotFoundException("Диагноз не найден.");
                 }
+
                 Diagnosis diagnosis = new Diagnosis()
                 {
                     Id = Guid.NewGuid(),
@@ -152,7 +162,13 @@ namespace webNET_2024_aspnet_1.Services
                     Description = diagnosisDTO.Description,
                     Type = diagnosisDTO.Type
                 };
+
                 newDiagnoses.Add(diagnosis);
+                if (diagnosis.Type == DiagnosisType.Main)
+                {
+                    hasMainDiagnosis = true;
+                }
+
                 _dbContext.Diagnoses.Add(diagnosis);
             }
             _dbContext.Diagnoses.RemoveRange(inspection.Diagnoses);
@@ -250,6 +266,55 @@ namespace webNET_2024_aspnet_1.Services
             };
 
             return inspectionDTO;
+        }
+
+        public async Task<List<NestedInspectionDTO>> GetNestedInspections(Guid inspectionId)
+        {
+            var rootInspection = await _dbContext.Inspections.FirstOrDefaultAsync(i => i.Id == inspectionId && i.HasChain);
+            if (rootInspection == null)
+            {
+                throw new BadRequestException("Эта инспекция не корневая!");
+            }
+            var inspections = await _dbContext.Inspections
+                   .Include(i => i.Doctor)
+                   .Include(i => i.Patient)
+                   .Where(i => i.BaseInspectionId == inspectionId)
+                   .Select(i => new
+                   {
+                       Inspection = i,
+                       MainDiagnosis = i.Diagnoses.FirstOrDefault(d => d.Type == DiagnosisType.Main)
+                   })
+                   .ToListAsync();
+
+            var nestedInspections = new List<NestedInspectionDTO>();
+
+            foreach (var item in inspections)
+            {
+                var nestedInspectionDTO = new NestedInspectionDTO
+                {
+                    Id = item.Inspection.Id,
+                    CreateTime = item.Inspection.CreateTime,
+                    PreviousId = item.Inspection.PreviousInspectionId ?? Guid.Empty,
+                    Date = item.Inspection.Date,
+                    Conclusion = item.Inspection.Conclusion,
+                    DoctorId = item.Inspection.Doctor.Id,
+                    Doctor = item.Inspection.Doctor.Name,
+                    PatientId = item.Inspection.Patient.Id,
+                    Patient = item.Inspection.Patient.Name,
+                    Diagnosis = item.MainDiagnosis != null ? new DiagnosisDTO
+                    {
+                        Id = item.MainDiagnosis.Id,
+                        Name = item.MainDiagnosis.Name,
+                        Code = item.MainDiagnosis.Code
+                    } : null,
+                    HasNested = item.Inspection.HasNested,
+                    HasChain = item.Inspection.HasChain
+                };
+
+                nestedInspections.Add(nestedInspectionDTO);
+            }
+
+            return nestedInspections;
         }
     }
 }

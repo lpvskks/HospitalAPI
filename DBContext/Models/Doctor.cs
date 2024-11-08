@@ -14,7 +14,7 @@ namespace webNET_2024_aspnet_1.DBContext.Models
         public string Name { get; set; }
         [Required]
         public string Password { get; set; }
-       
+
         public DateTime Birthday { get; set; }
         [Required]
         public Gender Gender { get; set; }

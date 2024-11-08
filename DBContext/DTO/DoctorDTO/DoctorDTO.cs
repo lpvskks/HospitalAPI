@@ -15,6 +15,7 @@ namespace webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO
         [Required]
         public Gender Gender { get; set; }
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
         public string Phone { get; set; }
     }

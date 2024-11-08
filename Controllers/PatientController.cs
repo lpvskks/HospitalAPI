@@ -45,5 +45,11 @@ namespace webNET_2024_aspnet_1.Controllers
             Guid doctorId = Guid.Parse(idString);
             return Ok(await _inspectionService.CreateInspection(id, doctorId, inspectionCreateDTO));
         }
+
+        [HttpGet("{id}/inspections/search")]
+        public async Task<IActionResult> GetInpectionsWithoutNested(Guid id, string? request)
+        {
+            return Ok(await _patientService.GetInspectionsWithoutNested(id, request));
+        }
     }
 }

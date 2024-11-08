@@ -1,4 +1,5 @@
-﻿using webNET_2024_aspnet_1.DBContext.DTO.PatientDTO;
+﻿using webNET_2024_aspnet_1.DBContext.DTO.InspectionDTO;
+using webNET_2024_aspnet_1.DBContext.DTO.PatientDTO;
 
 namespace webNET_2024_aspnet_1.Services.IServices
 {
@@ -7,5 +8,6 @@ namespace webNET_2024_aspnet_1.Services.IServices
         bool IsUniquePatient(string name);
         public Task<Guid> CreatePatient(PatientCreateDTO patientCreateDTO);
         public Task<PatientDTO> GetPatientCard(Guid id);
+        public Task<List<InpectionWithoutNestedDTO>> GetInspectionsWithoutNested(Guid patientId, string? request);
     }
 }
