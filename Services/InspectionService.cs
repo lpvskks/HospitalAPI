@@ -94,7 +94,7 @@ namespace webNET_2024_aspnet_1.Services
                 }
                 Diagnosis diagnosis = new Diagnosis()
                 {
-                    Id = Guid.NewGuid(),
+                    Id = diagnos.Id,
                     CreateTime = DateTime.UtcNow,
                     Code = diagnos.Code,
                     Name = diagnos.Name,
