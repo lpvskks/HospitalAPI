@@ -1,10 +1,13 @@
-﻿using System.Xml.Linq;
+﻿using System.Collections;
+using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
 using webNET_2024_aspnet_1.AdditionalServices.Exceptions;
 using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
 using webNET_2024_aspnet_1.DBContext;
+using webNET_2024_aspnet_1.DBContext.DTO.DictionaryDTO;
 using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
 using webNET_2024_aspnet_1.DBContext.DTO.InspectionDTO;
+using webNET_2024_aspnet_1.DBContext.DTO.PageDTO;
 using webNET_2024_aspnet_1.DBContext.DTO.PatientDTO;
 using webNET_2024_aspnet_1.DBContext.Models;
 using webNET_2024_aspnet_1.DBContext.Models.Enums;
@@ -114,6 +117,92 @@ namespace webNET_2024_aspnet_1.Services
             }
             return inspectionDtos;
         }
+        private static IQueryable<Patient> SortPatient(IQueryable<Patient> patients, Sorting? sorting)
+        {
+            switch (sorting)
+            {
+                case Sorting.NameAsc:
+                    patients = patients.OrderBy(d => d.Name);
+                    break;
+
+                case Sorting.NameDesc:
+                    patients = patients.OrderByDescending(d => d.Name);
+                    break;
+                case Sorting.CreateAsc:
+                    patients = patients.OrderBy(d => d.CreateTime);
+                    break;
+
+                case Sorting.CreateDesc:
+                    patients = patients.OrderByDescending(d => d.CreateTime);
+                    break;
+            }
+            return patients;
+        }
+        public async Task<PatientPagedListDTO> GetPatientPagedList(Guid doctorId,string? name,List<Conclusion>? conclusions,Sorting? sorting,
+            bool scheduledVisits,
+            bool onlyMine,
+            int page,
+            int size)
+        {
+            if (page <= 0) page = 1;
+            if (size <= 0) size = 1;
+
+            var patientsQuery = _dbContext.Patients.AsQueryable();
+
+            if (onlyMine)
+            {
+                patientsQuery = patientsQuery.Where(p => _dbContext.Inspections
+                    .Any(i => i.Patient.Id == p.Id && i.Doctor.Id == doctorId));
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                var loweredName = name.ToLower();
+                patientsQuery = patientsQuery.Where(p => p.Name.ToLower().Contains(loweredName));
+            }
+
+            if (conclusions != null && conclusions.Any())
+            {
+                patientsQuery = patientsQuery.Where(p => _dbContext.Inspections
+                    .Any(i => i.Patient.Id == p.Id && conclusions.Contains(i.Conclusion)));
+            }
+
+            if (scheduledVisits)
+            {
+                patientsQuery = patientsQuery.Where(p => _dbContext.Inspections
+                    .Any(i => i.Patient.Id == p.Id && i.NextVisitDate != null));
+            }
+
+            patientsQuery = SortPatient(patientsQuery, sorting);
+
+            var totalCount = await patientsQuery.CountAsync();
+            var totalPages = (int)Math.Ceiling((double)totalCount / size);
+
+            var patients = await patientsQuery
+                .Skip((page - 1) * size)
+                .Take(size)
+                .Select(p => new PatientDTO
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    CreateTime = p.CreateTime,
+                    Birthday = p.Birthday,
+                    Gender = p.Gender,
+                })
+                .ToListAsync();
+
+            return new PatientPagedListDTO
+            {
+                Patients = patients,
+                Pagination = new PageInfoDTO
+                {
+                    Size = size,
+                    Count = totalPages,
+                    Current = page
+                }
+            };
+        }
+
     }
 }
 

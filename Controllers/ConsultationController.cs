@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using webNET_2024_aspnet_1.Additional_Services.TokenHelpers;
 using webNET_2024_aspnet_1.DBContext.DTO.InspectionDTO;
@@ -19,12 +20,14 @@ namespace webNET_2024_aspnet_1.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Policy = "TokenBlackListPolicy")]
         public async Task<IActionResult> GetConcreteConsultation(Guid id)
         {
             return Ok(await _consultationService.GetConcreteConsultation(id));
         }
 
         [HttpPost("{id}/comment")]
+        [Authorize(Policy = "TokenBlackListPolicy")]
         public async Task<IActionResult> CreateComment(Guid id, CreateConsultationCommentDTO commentDTO)
         {
             string token = _tokenInteraction.GetTokenFromHeader();
@@ -38,6 +41,7 @@ namespace webNET_2024_aspnet_1.Controllers
         }
 
         [HttpPut("{id}/comment")]
+        [Authorize(Policy = "TokenBlackListPolicy")]
         public async Task<IActionResult> UpdateComment(Guid id, CommentDTO commentDTO)
         {
             string token = _tokenInteraction.GetTokenFromHeader();

@@ -39,7 +39,7 @@ namespace webNET_2024_aspnet_1.Services
                 Complaints = inspectionCreateDTO.Complaints,
                 Treatment = inspectionCreateDTO.Treatment,
                 Conclusion = inspectionCreateDTO.Conclusion,
-                NextVisitDate = inspectionCreateDTO.NextVisitDate,
+                NextVisitDate = inspectionCreateDTO.NextVisitDate ?? null,
                 Patient = patient,
                 Doctor = doctor,
                 Diagnoses = new List<Diagnosis>(),

@@ -24,6 +24,8 @@ namespace webNET_2024_aspnet_1.Services
 
         public async Task<SpecialitiesPagedListDTO> GetPaginatedSpecialities(string name, int page, int size)
         {
+            if (page <= 0) page = 1;
+            if (size <= 0) size = 1;
             var query = _dbContext.Specialties.AsQueryable();
 
             if (!string.IsNullOrEmpty(name))
@@ -82,6 +84,8 @@ namespace webNET_2024_aspnet_1.Services
 
         public async Task<IcdTenSearchDTO> SearchIcdTenRecords(string request, int page, int size)
         {
+            if (page <= 0) page = 1;
+            if (size <= 0) size = 1;
             var query = _dbContext.IcdTens.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request))
