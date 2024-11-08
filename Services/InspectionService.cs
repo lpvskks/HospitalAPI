@@ -30,6 +30,25 @@ namespace webNET_2024_aspnet_1.Services
             {
                 throw new ForbiddenException("Вы не доктор.");
             }
+            if (inspectionCreateDTO.NextVisitDate.HasValue && inspectionCreateDTO.NextVisitDate.Value <= DateTime.UtcNow)
+            {
+                throw new BadRequestException($"Следующая дата визита должна быть не раньше{DateTime.UtcNow:dd.MM.yyyy HH:mm:ss}");
+            }
+
+            var isDead = await _dbContext.Inspections.Include(p => p.Patient).FirstOrDefaultAsync(p => p.Patient.Id == patient.Id && p.Conclusion == Conclusion.Death);
+            if(isDead != null)
+            {
+                throw new BadRequestException("Этот пациент умер, ему нельзя сделать осмотр!");
+            }
+            if (inspectionCreateDTO.PreviousInspectionId != null)
+            {
+                var isTruePrevInspection = await _dbContext.Inspections.FirstOrDefaultAsync(i => i.Id == inspectionCreateDTO.PreviousInspectionId);
+                if (isTruePrevInspection == null)
+                {
+                    throw new BadRequestException("Такого осмотра не существует! Выберите другой предыдущий осмотр!");
+                }
+            }
+
             Inspection inspection = new Inspection()
             {
                 Id = Guid.NewGuid(),
@@ -273,7 +292,7 @@ namespace webNET_2024_aspnet_1.Services
             var rootInspection = await _dbContext.Inspections.FirstOrDefaultAsync(i => i.Id == inspectionId && i.HasChain);
             if (rootInspection == null)
             {
-                throw new BadRequestException("Эта инспекция не корневая!");
+                throw new BadRequestException("Эта инспекция не корневая или у нее нет потомков!");
             }
             var inspections = await _dbContext.Inspections
                    .Include(i => i.Doctor)

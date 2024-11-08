@@ -6,7 +6,6 @@ namespace webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO
     public class DoctorEditDTO
     {
         [Required]
-        [EmailAddress]
         public string Email { get; set; }
         [Required]
         public string Name { get; set; }

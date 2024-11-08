@@ -3,6 +3,7 @@ using System.Xml.Linq;
 using Microsoft.EntityFrameworkCore;
 using webNET_2024_aspnet_1.AdditionalServices.Exceptions;
 using webNET_2024_aspnet_1.AdditionalServices.HashPassword;
+using webNET_2024_aspnet_1.AdditionalServices.Validators;
 using webNET_2024_aspnet_1.DBContext;
 using webNET_2024_aspnet_1.DBContext.DTO.DictionaryDTO;
 using webNET_2024_aspnet_1.DBContext.DTO.DoctorDTO;
@@ -38,6 +39,14 @@ namespace webNET_2024_aspnet_1.Services
             if (!IsUniquePatient(patientCreateDTO.Name))
             {
                 throw new BadRequestException("Такой пациент уже существует");
+            }
+            if (!NameValidator.IsValidName(patientCreateDTO.Name))
+            {
+                throw new BadRequestException("Неправильный формат имени. Имя и фамилия должны начинаться с заглавной буквы. Допускаются только буквы и тире. Отчество является необязательным.");
+            }
+            if (!BirthdayValidator.ValidateBirthday(patientCreateDTO.Birthday))
+            {
+                throw new BadRequestException("Дата рождения должна быть в пределах 01.01.1900 и не позднее нынешнего времени.");
             }
             Patient patient = new Patient()
             {
@@ -138,7 +147,8 @@ namespace webNET_2024_aspnet_1.Services
             }
             return patients;
         }
-        public async Task<PatientPagedListDTO> GetPatientPagedList(Guid doctorId,string? name,List<Conclusion>? conclusions,Sorting? sorting,
+        public async Task<PatientPagedListDTO> GetPatientPagedList(Guid doctorId,string? name,List<Conclusion>? conclusions,
+Sorting? sorting,
             bool scheduledVisits,
             bool onlyMine,
             int page,

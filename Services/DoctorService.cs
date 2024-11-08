@@ -47,8 +47,7 @@ namespace webNET_2024_aspnet_1.Services
                 throw new BadRequestException("Неправильный формат имени. Имя и фамилия должны начинаться с заглавной буквы. Допускаются только буквы и тире. Отчество является необязательным.");
             }
 
-            var emailValidation = new EmailAddressAttribute();
-            if (!emailValidation.IsValid(doctorRegisterDTO.Email))
+            if (!EmailValidator.ValidateEmail(doctorRegisterDTO.Email))
             {
                 throw new BadRequestException("Неверный формат email!");
             }
@@ -158,32 +157,43 @@ namespace webNET_2024_aspnet_1.Services
             var doctor = await _dbContext.Doctors.FirstOrDefaultAsync(d => d.Id == Guid.Parse(doctorId));
             if (doctor != null)
             {
-                if (!NameValidator.IsValidName(doctorEditDTO.Name))
-                {
-                    throw new BadRequestException("Неправильный формат имени. Имя и фамилия должны начинаться с заглавной буквы. Допускаются только буквы и тире. Отчество является необязательным.");
+                if (doctorEditDTO.Name != null) {
+                    if (!NameValidator.IsValidName(doctorEditDTO.Name))
+                    {
+                        throw new BadRequestException("Неправильный формат имени. Имя и фамилия должны начинаться с заглавной буквы. Допускаются только буквы и тире. Отчество является необязательным.");
+                    }
+
+                    doctor.Name = doctorEditDTO.Name;
                 }
 
-                var emailValidation = new EmailAddressAttribute();
-                if (!emailValidation.IsValid(doctorEditDTO.Email))
-                {
-                    throw new BadRequestException("Неверный формат email!");
+                if (doctorEditDTO.Phone != null) {
+                    if (!PhoneNumberVlidator.IsValidePhoneNumber(doctorEditDTO.Phone))
+                    {
+                        throw new BadRequestException("Неверный формат номера телефона!");
+                    }
+                    doctor.Phone = doctorEditDTO.Phone;
                 }
 
-                if (!PhoneNumberVlidator.IsValidePhoneNumber(doctorEditDTO.Phone))
+                if (doctorEditDTO.Email != null)
                 {
-                    throw new BadRequestException("Неверный формат номера телефона!");
+                    if (!EmailValidator.ValidateEmail(doctorEditDTO.Email))
+                    {
+                        throw new BadRequestException("Неверный формат email!");
+                    }
+                    doctor.Email = doctorEditDTO.Email;
                 }
 
-                if (!BirthdayValidator.ValidateBirthday(doctorEditDTO.Birthday))
+                if (doctorEditDTO.Birthday != null)
                 {
-                    throw new BadRequestException("Дата рождения должна быть в пределах 01.01.1900 и не позднее нынешнего времени.");
+                    if (!BirthdayValidator.ValidateBirthday((DateTime)(doctorEditDTO.Birthday)))
+                    {
+                        throw new BadRequestException("Дата рождения должна быть в пределах 01.01.1900 и не позднее нынешнего времени.");
+                    }
+                    doctor.Birthday = (DateTime)(doctorEditDTO?.Birthday);
                 }
-
-                doctor.Email = doctorEditDTO.Email;
-                doctor.Name = doctorEditDTO.Name;
-                doctor.Birthday = doctorEditDTO.Birthday;
-                doctor.Gender = doctorEditDTO.Gender;
-                doctor.Phone = doctorEditDTO.Phone;
+                if (doctorEditDTO.Gender != null) {
+                    doctor.Gender = doctorEditDTO.Gender;
+                }
 
                 await _dbContext.SaveChangesAsync();
             }

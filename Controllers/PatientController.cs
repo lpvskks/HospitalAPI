@@ -60,7 +60,7 @@ namespace webNET_2024_aspnet_1.Controllers
 
         [HttpGet("")]
         [Authorize(Policy = "TokenBlackListPolicy")]
-        public async Task<IActionResult> GetPatientPagedList(string? name, [FromQuery]List<Conclusion>? conslusions, Sorting? sorting, bool shudeledVisits, bool onlyMine, int page, int size)
+        public async Task<IActionResult> GetPatientPagedList(string? name, [FromQuery]List<Conclusion>? conslusions, Sorting? sorting, bool shudeledVisits, bool onlyMine, int page = 1, int size = 5)
         {
             string token = _tokenInteraction.GetTokenFromHeader();
             if (token == null)
